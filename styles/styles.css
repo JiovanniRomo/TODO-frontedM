@@ -82,7 +82,8 @@ body {
 }
 
 .main__todos--input>input {
-    width           : 270px;
+    min-width       : 270px;
+    max-width       : 500px;
     height          : 35px;
     border          : 0;
     border-radius   : 5px;
@@ -106,7 +107,8 @@ input::placeholder {
 .item {
     display         : flex;
     align-items     : center;
-    width           : 270px;
+    min-width       : 270px;
+    max-width       : 500px;
     height          : 40px;
     background-color: var(--VeryDarkDesaturatedBlue);
     color           : var(--LightGrayishBlue2);
@@ -122,6 +124,14 @@ input::placeholder {
     margin-left  : 10px;
     border-radius: 50%;
     border       : 1px solid gray;
+}
+
+.complete span {
+    /* background-color: linear-gradient (hsl(192, 100%, 67%)) to (hsl(280, 87%, 65%)); */
+    background-color: green;
+    background-image: url('../images/icon-check.svg');
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .item:first-child {
