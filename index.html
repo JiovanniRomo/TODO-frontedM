@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./styles/tablet.css" media="(min-width: 768px)">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="./images/favicon-32x32.png" type="image/x-icon">
@@ -23,7 +24,7 @@
         </div>
         <div class="main-container__todos">
             <form action="" class="main__todos--input">
-                <input type="text" placeholder="Create a new todo...">
+                <input type="text" placeholder="Create a new todo..." class="text">
             </form>
             <div class="main-container__todos--items">
                 <div class="item complete">
@@ -33,6 +34,7 @@
                 <div class="item">
                     <span></span>
                     <p>Jog around the park 3x</p>
+                    <span class="todo--delete"></span>
                 </div>
 
                 <div class="item">
