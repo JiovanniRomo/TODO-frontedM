@@ -138,24 +138,25 @@ input:focus {
     background-repeat  : no-repeat;
 }
 
-.item:first-child {
+/* .item:first-child {
     border-radius  : 5px 5px 0 0;
     text-decoration: line-through;
-}
-
+} */
+/* 
 .item:last-child {
     display        : flex;
     justify-content: space-evenly;
     border-radius  : 0 0 5px 5px;
     color          : var(--DarkGrayishBlue);
     font-size      : 1rem;
-}
+} */
 
 .item:last-child p {
     cursor: pointer;
 }
 
 .item.item-filter {
+    display: flex;
     border-radius  : 5px;
     margin-top     : 20px;
     justify-content: center;
