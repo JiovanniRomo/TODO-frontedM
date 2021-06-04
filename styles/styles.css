@@ -190,3 +190,11 @@ footer p {
 .completed {
   color: green;
 }
+
+.light {
+    background-color: var(--VeryLightGray);
+}
+
+.form--light {
+    background-color: var(--VeryGrayishBlue);
+}
