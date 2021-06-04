@@ -10,14 +10,14 @@
   --VeryLightGray: hsl(0, 0%, 98%);
   --VeryGrayishBlue: hsl(236, 33%, 92%);
   --LightGrayishBlue: hsl(233, 11%, 84%);
-  --DarkGrayishBlue: hsl(236, 9%, 61%);
+  --LigthGrayishBlue: hsl(236, 9%, 61%);
   --VeryDarkGrayishBlue: hsl(235, 19%, 35%);
 
   /* Dark Theme */
   --VeryDarkBlue: hsl(235, 21%, 11%);
   --VeryDarkDesaturatedBlue: hsl(235, 24%, 19%);
   --LightGrayishBlue2: hsl(234, 39%, 85%);
-  --LightGrayishBlue: hsl(236, 33%, 92%);
+  --DarkGrayishBlue: hsl(236, 33%, 92%);
   --DarkGrayishBlue: hsl(234, 11%, 52%);
   --VeryDarkGrayishBlue: hsl(233, 14%, 35%);
   --VeryDarkGrayishBlue2: hsl(237, 14%, 26%);
@@ -25,7 +25,7 @@
 
 html {
   font-size: 62.5%;
-  font-family: "Josefin Sans";
+  font-family: "Josefin Sans", serif;
 }
 
 body {
@@ -43,7 +43,7 @@ body {
 
 .header-container__title {
   color: white;
-  font-family: "Josefin Sans";
+  font-family: "Josefin Sans", cursive;
   font-weight: 700;
   font-size: 2.5rem;
   letter-spacing: 1rem;

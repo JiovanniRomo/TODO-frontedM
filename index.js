@@ -6,6 +6,7 @@ const completedBtn = document.querySelector('#completed--todos');
 const themeBtn = document.querySelector('.icon');
 const body = document.querySelector('body');
 let todos = [];
+let todosFiltrados = [];
 
 
 //Listeners 
@@ -15,7 +16,11 @@ function loadListeners() {
 
     document.addEventListener('DOMContentLoaded', () => {
         todos = JSON.parse(localStorage.getItem('TODOS')) || [];
-        loadHTML();
+        console.log(todos)
+
+        const item = document.querySelectorAll('.item--todo');
+
+        loadHTML(todos);
     });
 
     allBtn.addEventListener('click', allTodos);
@@ -50,12 +55,12 @@ function addTodo(e) {
     formTodo.reset();
 }
 
-function loadHTML() {
+function loadHTML(todosArr = todos) {
 
     cleanHTML();
 
-    if (todos.length > 0) {
-        todos.forEach(todo => {
+    if (todosArr.length > 0) {
+        todosArr.forEach(todo => {
 
             const container = document.createElement('div');
             container.classList.add('item', 'item--todo');
@@ -96,10 +101,17 @@ function cleanHTML() {
 }
 
 function completeTodo(id) {
-    todosUpdated = todos.map(todo => {
+    let todosUpdated = todos.map(todo => {
         if(todo.id === id) {
-            todo.complete = true;
-
+            if(todo.complete) {
+                todo.complete = false;
+                syncStorage()
+                return todo;
+            } else {
+                todo.complete = true;
+                syncStorage()
+                return todo
+            }
             return todo;
         } else {
             return todo;
@@ -137,13 +149,21 @@ function syncStorage() {
 }
 
 function allTodos() {
-    console.log('Todos los que haceres');
+    console.log('Loading all TODOS')
+    loadHTML();
 }
 
 function activeFilter() {
     console.log('Filtrando por activos');
+    todosFiltrados = todos.filter(todo => todo.complete === false);
+
+    loadHTML(todosFiltrados);
 }
 
 function completedFilter() {
     console.log('Filtrando todos completados');
+
+    todosFiltrados = todos.filter(todo => todo.complete === true);
+    loadHTML(todosFiltrados);
+    console.log(todosFiltrados)
 }
