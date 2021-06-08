@@ -91,6 +91,14 @@ body {
   background-color: var(--VeryDarkDesaturatedBlue);
 }
 
+.main__todos--input .light-input {
+  background-color: var(--VeryLightGray);
+}
+
+.item.item-filter.light-filter {
+  background-color: var(--VeryLightGray);
+}
+
 input::placeholder {
   padding: 20px;
   font-size: 1rem;
