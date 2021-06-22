@@ -119,7 +119,6 @@ function completeTodo(id) {
     })
 
     todos = [...todosUpdated];
-    console.log(todos);
 }
 
 function changeTheme() {
@@ -149,19 +148,16 @@ function syncStorage() {
 }
 
 function allTodos() {
-    console.log('Loading all TODOS')
     loadHTML();
 }
 
 function activeFilter() {
-    console.log('Filtrando por activos');
     todosFiltrados = todos.filter(todo => todo.complete === false);
 
     loadHTML(todosFiltrados);
 }
 
 function completedFilter() {
-    console.log('Filtrando todos completados');
 
     todosFiltrados = todos.filter(todo => todo.complete === true);
     loadHTML(todosFiltrados);
