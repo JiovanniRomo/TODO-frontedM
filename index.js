@@ -123,7 +123,6 @@ function completeTodo(id) {
     })
 
     todos = [...todosUpdated];
-    console.log(todos);
 }
 
 function changeTheme() {
