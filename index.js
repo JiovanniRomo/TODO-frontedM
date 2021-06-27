@@ -1,4 +1,4 @@
-const formTodo = document.querySelector('#form-input');
+const formTodo = document.querySelector('#agregar-todo');
 const mainContainer = document.querySelector('.main-container__todos--items');
 const allBtn = document.querySelector('#all--todos');
 const activeBtn = document.querySelector('#active--todos');
@@ -11,165 +11,206 @@ let todos = [];
 let filterTODOS = [];
 
 
+//Classes
+
+class UI {
+
+    mostrarError(mensaje) {
+        alert(mensaje);
+    }
+
+    loadHTML() {
+        this.clearHTML();
+
+        console.log('hola');
+    }
+
+    clearHTML() {
+        while (mainContainer.firstChild) {
+            mainContainer.removeChild(mainContainer.firstChild);
+        }
+    }
+
+}
+
+class TODOS {
+    constructor() {
+        this.todos = [];
+    }
+
+    addTodo(todo) {
+        this.todos = [...this.todos, todo];
+        console.log(todos);
+    }
+}
+
+class TODO {
+    constructor(description) {
+        this.id = new Date().getTime();
+        this.description = description;
+        this.done = false;
+    }
+}
+
+//instancias
+const ui = new UI();
+const todosArr = new TODOS();
+
 //Listeners 
 loadListeners();
 function loadListeners() {
-    formTodo.addEventListener('submit', addTodo);
+    formTodo.addEventListener('click', validarForm);
 
-    document.addEventListener('DOMContentLoaded', () => {
-        todos = JSON.parse(localStorage.getItem('TODOS')) || [];
-        console.log(todos)
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     todos = JSON.parse(localStorage.getItem('TODOS')) || [];
+    //     console.log(todos)
 
-        loadHTML(todos);
-    });
-
-    allBtn.addEventListener('click', allTodos);
-
-    activeBtn.addEventListener('click', activeFilter);
-
-    completedBtn.addEventListener('click', completedFilter);
-
-    clearBtn.addEventListener('click', clearCompleted);
-
-    themeBtn.addEventListener('click', changeTheme);
+    //     loadHTML(todos);
+    // });
 }
 
-function addTodo(e) {
+function validarForm(e) {
     e.preventDefault();
 
     const todo = document.querySelector('#form-input').value;
 
-    if (todo === '') {
-        alert('No puedes agregar un TODO vacio');
+    if(todo === '' || todo.length < 3) {
+        ui.mostrarError();
         return;
     }
 
-    const todoObj = {
-        id: Date.now(),
-        todo,
-        complete: false
-    };
-
-    todos = [...todos, todoObj];
-    syncStorage();
-    loadHTML();
-
-    formTodo.reset();
+    agregarTodo(todo);
 }
 
-function loadHTML(todosArr = todos) {
+function agregarTodo(todo) {
+    const todoObj = new TODO(todo);
+    // todoObj.id = new Date().getTime();
 
-    cleanHTML();
+    todosArr.addTodo(todoObj);
 
-    if (todosArr.length > 0) {
-        todosArr.forEach(todo => {
+    const formulario = document.querySelector('#formulario');
+    formulario.reset();
 
-            const container = document.createElement('div');
-            container.classList.add('item', 'item--todo');
-            container.setAttribute('id', 'item');
-
-            const completed = document.createElement('a');
-            completed.classList.add('complete--todo');
-            completed.onclick = () => {
-                completeTodo(todo.id)
-            }
-
-            const paragraphTodo = document.createElement('p');
-            paragraphTodo.textContent = todo.todo;
-
-            const spanDelete = document.createElement('span');
-            spanDelete.classList.add('todo--delete');
-            spanDelete.onclick = () => {
-                deleteTodo(todo.id);
-            }
-
-            container.appendChild(completed);
-            container.appendChild(paragraphTodo);
-            container.appendChild(spanDelete);
-
-
-            mainContainer.appendChild(container);
-        });
-    }
-
-    syncStorage();
+    console.log(todosArr)
 }
 
-function cleanHTML() {
-    while (mainContainer.firstChild) {
-        mainContainer.removeChild(mainContainer.firstChild);
-    }
-}
-
-function completeTodo(id) {
-    let todosUpdated = todos.map(todo => {
-
-        if(todo.id === id) {
+// function addTodo(e) {
+//     e.preventDefault();
 
 
-            if(todo.complete) {
-                todo.complete = false;
-                syncStorage();
-                return todo;
-            } else {
-                todo.complete = true;
-                syncStorage();
+//     if (todo === '') {
+//         alert('No puedes agregar un TODO vacio');
+//         return;
+//     }
 
-                return todo;
-            }
-        } else {
-            return todo;
-        }
-    })
+//     const todoObj = {
+//         id: Date.now(),
+//         todo,
+//         complete: false
+//     };
 
-    todos = [...todosUpdated];
-}
+//     todos = [...todos, todoObj];
+//     syncStorage();
+//     loadHTML();
 
-function changeTheme() {
+//     formTodo.reset();
+// }
 
-    if (body.classList.contains('dark')) {
-        body.classList.remove('dark');
-        body.classList.add('light');
-        formTodo.classList.add('light-input');
-        containerFilter.classList.add('light-filter')
-    } else if (body.classList.contains('light')) {
-        formTodo.classList.remove('light-input');
-        containerFilter.classList.remove('light-filter')
-        body.classList.remove('light');
-        body.classList.add('dark');
-        console.log('its light')
-    }
-}
+// function loadHTML(todosArr = todos) {
 
-function deleteTodo(id) {
-    todos = todos.filter(todo => todo.id !== id);
-    loadHTML();
-}
+//     cleanHTML();
 
-function syncStorage() {
-    localStorage.setItem('TODOS', JSON.stringify(todos));
-}
+//     if (todosArr.length > 0) {
+//         todosArr.forEach(todo => {
 
-function allTodos() {
-    loadHTML();
-}
+//             const container = document.createElement('div');
+//             container.classList.add('item', 'item--todo');
+//             container.setAttribute('id', 'item');
 
-function activeFilter() {
+//             const completed = document.createElement('a');
+//             completed.classList.add('complete--todo');
+//             completed.onclick = () => {
+//                 completeTodo(todo.id)
+//             }
 
-    filterTODOS = todos.filter(todo => todo.complete === false);
+//             const paragraphTodo = document.createElement('p');
+//             paragraphTodo.textContent = todo.todo;
 
-    loadHTML(filterTODOS);
-}
+//             const spanDelete = document.createElement('span');
+//             spanDelete.classList.add('todo--delete');
+//             spanDelete.onclick = () => {
+//                 deleteTodo(todo.id);
+//             }
 
-function completedFilter() {
+//             container.appendChild(completed);
+//             container.appendChild(paragraphTodo);
+//             container.appendChild(spanDelete);
 
-    filterTODOS = todos.filter(todo => todo.complete === true);
-    loadHTML(filterTODOS);
-    console.log(filterTODOS)
-}
 
-function clearCompleted () {
-    todos = todos.filter(todo => todo.complete !== true);
-    loadHTML();
-    syncStorage();
-}
+//             mainContainer.appendChild(container);
+//         });
+//     }
+
+//     syncStorage();
+// }
+
+// function cleanHTML() {
+
+// }
+
+// function completeTodo(id) {
+//     let todosUpdated = todos.map(todo => {
+
+//         if (todo.id === id) {
+
+
+//             if (todo.complete) {
+//                 todo.complete = false;
+//                 syncStorage();
+//                 return todo;
+//             } else {
+//                 todo.complete = true;
+//                 syncStorage();
+
+//                 return todo;
+//             }
+//         } else {
+//             return todo;
+//         }
+//     })
+
+//     todos = [...todosUpdated];
+// }
+
+// function deleteTodo(id) {
+//     todos = todos.filter(todo => todo.id !== id);
+//     loadHTML();
+// }
+
+// function syncStorage() {
+//     localStorage.setItem('TODOS', JSON.stringify(todos));
+// }
+
+// function allTodos() {
+//     loadHTML();
+// }
+
+// function activeFilter() {
+
+//     filterTODOS = todos.filter(todo => todo.complete === false);
+
+//     loadHTML(filterTODOS);
+// }
+
+// function completedFilter() {
+
+//     filterTODOS = todos.filter(todo => todo.complete === true);
+//     loadHTML(filterTODOS);
+//     console.log(filterTODOS)
+// }
+
+// function clearCompleted() {
+//     todos = todos.filter(todo => todo.complete !== true);
+//     loadHTML();
+//     syncStorage();
+// }
